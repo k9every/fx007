@@ -1,16 +1,43 @@
-<%@ page language="java" pageEncoding="GBK"%>
-<%@ page import="java.util.Date,java.text.*"%>
-<!DOCTYPE html>
-<html>
+<%@page language="java" contentType="text/html;charset=UTF-8"%>
+<%@page import="java.util.*,java.io.*"%>
+<!doctype html>
+<html lang="en">
 <head>
-	<title>输出系统时间</title>
+	<meta charset="UTF-8">
+	<title>Document</title>
 </head>
+<%String user=(String)session.getAttribute("user");%>
 <body>
-<%
-Date nowday=new Date();
-SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-String time=format.format(nowday);
-out.print("当前系统时间："+time);
-%>
+	<div>
+	当前登陆用户<%=user%>
+	</div>
+	<%
+	if(user==null){
+	
+	out.println("<a href='login.html'>你还没有登陆，请登陆</a>");
+	
+	}else
+	{
+	out.println("<a href='logout.jsp'>注销登陆	</a>");
+	}
+	%>
+
+
+	<div>
+		您的购物车信息如下:
+		<%
+			if(session.getAttribute("shopcar")!=null)
+			{
+				HashMap<String,Integer> shopcar=(HashMap<String,Integer>)session.getAttribute("shopcar");
+
+				for(String key:shopcar.keySet())
+					out.println("<p>"+key+" "+shopcar.get(key));
+			}
+
+		%>
+
+
+
+	</div>
 </body>
 </html>
